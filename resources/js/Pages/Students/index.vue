@@ -1,14 +1,14 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head , Link} from '@inertiajs/vue3';
+import {Head, Link} from '@inertiajs/vue3';
 
-const props=defineProps({
-    students:Array
+const props = defineProps({
+    students: Array
 })
 </script>
 
 <template>
-    <Head title="Students" />
+    <Head title="Students"/>
 
     <AuthenticatedLayout>
         <template #header>
@@ -19,39 +19,42 @@ const props=defineProps({
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
 
-<!--                =========-->
+                <!--                =========-->
 
 
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <div class="flex justify-end m-2 p-2">
-                        <Link href="/students/create" class="px-4 py-2 bg-blue-500 font-bold hover:bg-blue-600 rounded text-white">Add Student</Link>
+                        <Link class="px-4 py-2 bg-blue-500 font-bold hover:bg-blue-600 rounded text-white"
+                              href="/students/create">Add Student
+                        </Link>
                     </div>
 
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th scope="col" class="p-4">
+                            <th class="p-4" scope="col">
                                 <div class="flex items-center">
-                                    <input id="checkbox-all-search" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="checkbox-all-search" class="sr-only">checkbox</label>
+                                    <input id="checkbox-all-search" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                           type="checkbox">
+                                    <label class="sr-only" for="checkbox-all-search">checkbox</label>
                                 </div>
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <th class="px-6 py-3" scope="col">
                                 ID
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <th class="px-6 py-3" scope="col">
                                 Image
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <th class="px-6 py-3" scope="col">
                                 Name
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <th class="px-6 py-3" scope="col">
                                 Age
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <th class="px-6 py-3" scope="col">
                                 Status
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <th class="px-6 py-3" scope="col">
                                 Action
                             </th>
                         </tr>
@@ -59,8 +62,8 @@ const props=defineProps({
 
                         <tbody>
 
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                            v-for="students in students" :key="students.id">
+                        <tr v-for="students in students"
+                            :key="students.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
                             <td class="px-6 py-4">
 
@@ -68,11 +71,10 @@ const props=defineProps({
 
                             <td class="px-6 py-4">
                                 <div class="flex items-center">
-                                    {{students.id}}
+                                    {{ students.id }}
                                 </div>
                             </td>
 
-                            <!-- ... -->
 
                             <td class="px-6 py-4">
                                 <div class="flex items-center">
@@ -80,24 +82,21 @@ const props=defineProps({
                                 </div>
                             </td>
 
-                            <!-- ... -->
-
-
                             <td class="px-6 py-4">
                                 <div class="flex items-center">
-                                   {{students.name}}
+                                    {{ students.name }}
                                 </div>
                             </td>
 
                             <td class="px-6 py-4">
                                 <div class="flex items-center">
-                                    {{students.age}}
+                                    {{ students.age }}
                                 </div>
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex items-center">
                                     <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div>
-                                    {{students.status}}
+                                    {{ students.status }}
                                 </div>
                             </td>
 
@@ -105,20 +104,21 @@ const props=defineProps({
                             <td class="px-6 py-4">
                                 <Link
                                     :href="`/students/${students.id}/edit`"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                >Edit
+                                    class="font-medium p-2 bg-green-500 rounded mr-2 text-white hover:bg-green-600"
+                                >Update
+                                </Link>
+
+                                <Link
+                                    :href="`/students/${students.id}/edit`"
+                                    class="font-medium p-2 bg-red-500  text-white dark:text-blue-500 rounded hover:bg-red-600"
+                                >Delete
                                 </Link>
                             </td>
                         </tr>
 
-
                         </tbody>
                     </table>
                 </div>
-
-
-                <!--                ========-->
-
             </div>
         </div>
     </AuthenticatedLayout>
