@@ -79,7 +79,6 @@ class StudentController extends Controller
         $image = $student->image;
 
         if ($request->file('image')) {
-            // Delete the old image after updating the record to avoid file not found issues
             $oldImagePath = 'public/' . $student->image;
             $image = $request->file('image')->store('students', 'public');
             Storage::delete($oldImagePath);
@@ -100,6 +99,8 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        // Implement if needed
+       Storage::delete('public/'.$student->image);
+       $student->delete();
+        return redirect()->route('students.index');
     }
 }

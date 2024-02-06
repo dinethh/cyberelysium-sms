@@ -103,15 +103,16 @@ const props = defineProps({
 
                             <td class="px-6 py-4">
                                 <Link
-                                    :href="`/students/${students.id}/edit`"
-                                    class="font-medium p-2 bg-green-500 rounded mr-2 text-white hover:bg-green-600"
-                                >Update
+                                    :href="`/students/${students.id}`"
+                                    method="delete" as="button" type="button"
+                                    class="font-medium p-2 bg-red-500 rounded mr-2 text-white hover:bg-red-600"
+                                >Delete
                                 </Link>
 
                                 <Link
                                     :href="`/students/${students.id}/edit`"
-                                    class="font-medium p-2 bg-red-500  text-white dark:text-blue-500 rounded hover:bg-red-600"
-                                >Delete
+                                    class="font-medium p-2 bg-green-500  text-white  rounded hover:bg-green-600"
+                                >Update
                                 </Link>
                             </td>
                         </tr>
