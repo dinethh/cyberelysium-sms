@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class StudentController extends Controller
@@ -14,16 +14,16 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Students/index',[
-            'students'=>Student::all()->map(function ($students){
-                return[
-                    'id'=>$students->id,
-                    'name'=>$students->name,
-                    'image' => asset('storage/app/public/' . $students->image),
-                    'age'=>$students->age,
-                    'status'=>$students->status,];
+        return Inertia::render('Students/index', [
+            'students' => Student::all()->map(function ($student) {
+                return [
+                    'id' => $student->id,
+                    'name' => $student->name,
+                    'image' => asset('storage/' . $student->image),
+                    'age' => $student->age,
+                    'status' => $student->status,
+                ];
             })
-
         ]);
     }
 
@@ -46,42 +46,60 @@ class StudentController extends Controller
             'name' => $request->input('name'),
             'image' => $image,
             'age' => $request->input('age'),
-            'status'=>$request->input('status'),
+            'status' => $request->input('status'),
         ]);
 
         return redirect()->route('students.index');
     }
 
-
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Student $student)
     {
-        //
+        // Implement if needed
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Student $student)
     {
-        //
+        return Inertia::render('Students/edit', [
+            'student' => $student,
+            'image' => asset('storage/' . $student->image),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Student $student)
     {
-        //
+        $image = $student->image;
+
+        if ($request->file('image')) {
+            // Delete the old image after updating the record to avoid file not found issues
+            $oldImagePath = 'public/' . $student->image;
+            $image = $request->file('image')->store('students', 'public');
+            Storage::delete($oldImagePath);
+        }
+
+        $student->update([
+            'name' => $request->input('name'),
+            'image' => $image,
+            'age' => $request->input('age'),
+            'status' => $request->input('status'),
+        ]);
+
+        return redirect()->route('students.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Student $student)
     {
-        //
+        // Implement if needed
     }
 }

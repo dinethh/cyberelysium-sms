@@ -72,11 +72,16 @@ const props=defineProps({
                                 </div>
                             </td>
 
+                            <!-- ... -->
+
                             <td class="px-6 py-4">
                                 <div class="flex items-center">
-                                    <img src="students.image" class="w-12 h-12 rounded" >
+                                    <img :src="students.image" class="w-12 h-12 rounded">
                                 </div>
                             </td>
+
+                            <!-- ... -->
+
 
                             <td class="px-6 py-4">
                                 <div class="flex items-center">
@@ -98,7 +103,11 @@ const props=defineProps({
 
 
                             <td class="px-6 py-4">
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit user</a>
+                                <Link
+                                    :href="`/students/${students.id}/edit`"
+                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                >Edit
+                                </Link>
                             </td>
                         </tr>
 
