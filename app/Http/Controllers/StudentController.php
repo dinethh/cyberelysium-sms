@@ -3,104 +3,47 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use domain\Facade\StudentFacade;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class StudentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return Inertia::render('Students/index', [
-            'students' => Student::all()->map(function ($student) {
-                return [
-                    'id' => $student->id,
-                    'name' => $student->name,
-                    'image' => asset('storage/' . $student->image),
-                    'age' => $student->age,
-                    'status' => $student->status,
-                ];
-            })
-        ]);
+        return Inertia::render('Students/index',
+            ['students' => StudentFacade::getAllStudents(),]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return Inertia::render('Students/create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $image = $request->file('image')->store('students', 'public');
-
-        Student::create([
-            'name' => $request->input('name'),
-            'image' => $image,
-            'age' => $request->input('age'),
-            'status' => $request->input('status'),
-        ]);
-
+        StudentFacade::createStudent($request->all());
         return redirect()->route('students.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Student $student)
+    public function edit($id)
     {
-        // Implement if needed
+        $student = Student::find($id);
+        return Inertia::render('Students/edit',
+            ['student' => $student, 'image' => asset('storage/' . $student->image),]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Student $student)
+    public function update(Request $request, $id)
     {
-        return Inertia::render('Students/edit', [
-            'student' => $student,
-            'image' => asset('storage/' . $student->image),
-        ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Student $student)
-    {
-        $image = $student->image;
-
-        if ($request->file('image')) {
-            $oldImagePath = 'public/' . $student->image;
-            $image = $request->file('image')->store('students', 'public');
-            Storage::delete($oldImagePath);
-        }
-
-        $student->update([
-            'name' => $request->input('name'),
-            'image' => $image,
-            'age' => $request->input('age'),
-            'status' => $request->input('status'),
-        ]);
-
+        $student = Student::find($id);
+        StudentFacade::updateStudent($student, $request->all());
         return redirect()->route('students.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Student $student)
+    public function destroy($id)
     {
-       Storage::delete('public/'.$student->image);
-       $student->delete();
+        $student = Student::find($id);
+        StudentFacade::deleteStudent($student);
         return redirect()->route('students.index');
     }
 }
