@@ -20,7 +20,7 @@ import { Head , Link} from '@inertiajs/vue3';
 
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <div class="flex justify-end m-2 p-2">
-                        <Link href="/students/create" class="px-4 py-2 bg-red-500 rounded text-white">Add Student</Link>
+                        <Link href="/students/create" class="px-4 py-2 bg-blue-500 font-bold hover:bg-blue-600 rounded text-white">Add Student</Link>
                     </div>
 
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">

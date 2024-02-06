@@ -20,9 +20,35 @@ import { Head , Link} from '@inertiajs/vue3';
 
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <div class="flex m-2 p-2">
-                        <Link href="/students" class="px-4 py-2 bg-red-500 rounded text-white">Back</Link>
+                        <Link href="/students" class="px-4 py-2 bg-black font-bold rounded text-white">Back</Link>
                     </div>
                     <!--                ========-->
+
+
+
+                    <div class="flex">
+
+
+                        <form class="max-w-sm mx-auto">
+                            <div class="mb-5">
+                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Student Name</label>
+                                <input type="text" id="name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required>
+                            </div>
+
+                            <div class="mb-5">
+                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">Upload Avatar</label>
+                                <input class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" aria-describedby="user_avatar_help" id="image" type="file">
+                            </div>
+
+                            <div class="mb-5">
+                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Student Age</label>
+                                <input type="text" id="age" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"  required>
+                            </div>
+
+                            <button type="submit" class=" mb-5 text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                        </form>
+
+                    </div>
 
 
                     <!--                ========-->
