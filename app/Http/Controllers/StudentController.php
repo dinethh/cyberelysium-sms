@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class StudentController extends Controller
@@ -14,7 +15,14 @@ class StudentController extends Controller
     public function index()
     {
         return Inertia::render('Students/index',[
-            'students'=>Student::all()
+            'students'=>Student::all()->map(function ($students){
+                return[
+                    'id'=>$students->id,
+                    'name'=>$students->name,
+                    'image' => asset('storage/app/public/' . $students->image),
+                    'age'=>$students->age,
+                    'status'=>$students->status,];
+            })
 
         ]);
     }
@@ -32,8 +40,18 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $image = $request->file('image')->store('students', 'public');
+
+        Student::create([
+            'name' => $request->input('name'),
+            'image' => $image,
+            'age' => $request->input('age'),
+            'status'=>$request->input('status'),
+        ]);
+
+        return redirect()->route('students.index');
     }
+
 
     /**
      * Display the specified resource.
